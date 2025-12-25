@@ -1,0 +1,14 @@
+### แหล่งข้อมูล: หน้า 221
+
+โรคตา หู จมูก และคอ
+<page_number>221</page_number>
+
+# โรคตา หู จมูก และคอ
+
+<table><tr><td>1. โรคหวัดภูมิแพ้/ โรคแพ้อากาศ, 222</td><td>9. โรคเมเนียส์, 239</td></tr><tr><td>2. มะเร็งกล่องเสียง, 225</td><td>10. มะเร็งหลังโพรงจมูก, 240</td></tr><tr><td>3. โรคต้อกระจก, 227</td><td>11. หูน้ำหนวก, 243</td></tr><tr><td>4. เยื่อบุตาอักเสบ, 230</td><td>12. มะเร็งของตา, 245</td></tr><tr><td>5. แผลที่กระจกตา, 231</td><td>13. เยื่อบุจมูกอักเสบ, 246</td></tr><tr><td>6. โรคต้อหิน, 233</td><td>14. ไซนัสอักเสบ/ โพรงจมูกอักเสบ, 248</td></tr><tr><td>7. การสูญเสีย<br/>การได้ยิน/ หูตึง/ หูหนวก, 235</td><td>15. ต่อมทอนซิลอักเสบ, 251</td></tr><tr><td>8. กล่องเสียงอักเสบ, 238</td><td>16. ริดสีดวงตา, 253</td></tr><tr><td></td><td>17. ตุ่มเนื้อที่สายเสียง, 254</td></tr></table>
+
+## Eye, Ear, Nose and Throat Disorders
+
+<table><tr><td>1. Allergic rhinitis/Hay fever, 222</td><td>10. Nasopharyngeal carcinoma<br/>(NPC), 240</td></tr><tr><td>2. CA Larynx, 225</td><td>11. Otitis media, 243</td></tr><tr><td>3. Cataract, 227</td><td>12. Retinoblastoma, 245</td></tr><tr><td>4. Conjunctivitis, 230</td><td>13. Rhinitis, 246</td></tr><tr><td>5. Corneal ulcer, 231</td><td>14. Sinusitis, 248</td></tr><tr><td>6. Glaucoma, 233</td><td>15. Tonsillitis, 251</td></tr><tr><td>7. Hearing loss, 235</td><td>16. Trachoma, 253</td></tr><tr><td>8. Laryngitis, 238</td><td>17. Vocal nodule, 254</td></tr><tr><td>9. Meniere's disease, 239</td><td></td></tr></table>
+
+บทที่ 6

@@ -1,0 +1,35 @@
+### แหล่งข้อมูล: หน้า 172
+
+<page_number>172</page_number>
+
+คู่มือแพทย์
+
+## โรคเลือดและระบบน้ำเหลือง
+
+1. ภาวะซีด หรือภาวะโลหิตจาง, 173
+2. โรคโลหิตจางไขกระดูกไม่ทำงาน/ โรคไขกระดูกฝ่อ, 175
+3. ภาวะซีดจากภูมิต้านทานตนเอง ทำลายเม็ดเลือดแดง, 177
+4. การเกิดลิ่มเลือดในกระแสเลือด, 179
+5. โรคฮีโมฟีเลย, 181
+6. โรคมะเร็งต่อมน้ำเหลืองฮอดจ์กิน, 183
+7. ภาวะเลือดออกง่ายจากเกล็ด เลือดต่ำชนิดไม่ทราบสาเหตุ, 185
+8. ภาวะโลหิตจาง จากการขาดธาตุเหล็ก, 186
+9. โรคมะเร็งเม็ดเลือดขาว, 188
+10. มะเร็งต่อมน้ำเหลือง, 190
+11. โรคมะเร็งต่อมน้ำเหลือง นอนฮอดจ์กิน, 192
+12. โรคธาลัสซีเมีย, 194
+
+## Hematologic and Lymphatic Disorders
+
+1. Anemia, 173
+2. Aplastic anemia, 175
+3. Autoimmune hemolytic anemia (AIHA), 177
+4. Disseminated intravascular Coagulation (DIC), 179
+5. Hemophilia, 181
+6. Hodgkin lymphoma, 183
+7. Idiopathic or Immunologic thrombocytopenic purpura (ITP), 185
+8. Iron-deficiency anemia, 186
+9. Leukemia, 188
+10. Lymphomas, 190
+11. Non-Hodgkin lymphoma, 192
+12. Thalassemia, 194

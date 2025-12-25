@@ -1,0 +1,13 @@
+### แหล่งข้อมูล: หน้า 331
+
+<page_number>331</page_number>
+
+# โรคระบบผิวหนัง
+
+<table><tr><td>1. ฝี, 332</td><td>6.</td></tr><tr><td>2. สิว, 334</td><td>อีสุกอีใส, 340</td></tr><tr><td>3. ผมร่วง/ ผมบาง, 336</td><td>7. ผื่นแพ้จากการสัมผัส, 343</td></tr><tr><td>4. ผื่นแพ้จากกรรมพันธุ์, 337</td><td>8. เริม, 345</td></tr><tr><td>5. เนื้อเยื่อใต้ผิวหนังชั้นลึกอักเสบ, 339</td><td>9. งูสวัด, 347<br/>10. โรคสะเก็ดเงิน, 349</td></tr></table>
+
+## Integumentary Disorders
+
+<table><tr><td>1. Abscess/ Boils/ Furuncles, 332</td><td>6. Chickenpox/ Varicella, 340</td></tr><tr><td>2. Acne/ Acne vulgaris, 334</td><td>7. Contact dermatitis, 343</td></tr><tr><td>3. Alopecia/ Baldness, 336</td><td>8. Herpes simplex, 345</td></tr><tr><td>4. Atopic dermatitis/<br/>Eczema, 337</td><td>9. Herpes zoster, 347</td></tr><tr><td>5. Cellulitis, 339</td><td>10. Psoriasis, 349</td></tr></table>
+
+บทที่ 9

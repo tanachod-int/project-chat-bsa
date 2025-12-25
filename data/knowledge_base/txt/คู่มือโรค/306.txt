@@ -1,0 +1,38 @@
+### แหล่งข้อมูล: หน้า 306
+
+<page_number>306</page_number>
+
+คู่มือโรค
+
+# โรคตับ และระบบทางเดินน้ำดี
+
+1. ฝีตับ/ ฝีบิดในตับ/ ฝีตับอะมีบา, 307
+2. มะเร็งตับอ่อน, 309
+3. มะเร็งท่อทางเดินน้ำดี, 312
+4. ถุงน้ำดีอักเสบ, 314
+5. ภาวะตับแข็ง, 316
+6. ภาวะนิ่วในถุงน้ำดี, 318
+7. การเปลี่ยนแปลงทางสมองเนื่องจาก การทำงานของตับผิดปกติ, 320
+8. โรคมะเร็งตับ, 322
+9. พยาธิใบไม้ในตับ, 324
+10. ตับอ่อนอักเสบ, 325
+11. โรคตับอักเสบจากเชื้อไวรัส, 327
+
+## Liver and Biliary Disorders
+
+บทที่ 8
+
+1. Amebic liver abscess, 307
+2. CA Pancrease/
+    *   Pancreatic cancer, 309
+3. Cholangiocarcinoma, 312
+4. Cholecystitis, 314
+5. Cirrhosis of liver, 316
+6. Gallstone, 318
+7. Hepatic encephalopathy, 320
+8. Hepatocellular cancer;
+    *   Hepatocelula carcinoma/
+        *   CA liver, 322
+9. Liver fluke, 324
+10. Pancreatitis, 325
+11. Viral hepatitis, 327

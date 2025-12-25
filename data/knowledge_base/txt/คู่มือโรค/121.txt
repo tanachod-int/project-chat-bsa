@@ -1,0 +1,44 @@
+### แหล่งข้อมูล: หน้า 121
+
+โรคหัวใจและระบบไหลเวียนของโลหิต 121
+
+## โรคหัวใจและระบบไหลเวียนของเลือด
+
+1.  ภาวะหลอดเลือดแดงอุดตันเฉียบพลัน, 122
+2.  ภาวะกล้ามเนื้อหัวใจตายเฉียบพลัน, 125
+3.  อาการเจ็บหน้าอกที่เกิดขึ้นเป็นพักๆ, 127
+4.  อาการเจ็บหน้าอกเนื่องจาก หัวใจขาดเลือด, 129
+5.  ลิ้นหัวใจเออออร์ติกรั่ว, 132
+6.  ลิ้นหัวใจเออออร์ติกตีบ, 134
+7.  โรคหลอดเลือดแดงแข็ง, 136
+8.  ภาวะหัวใจเต้นผิดจังหวะ, 139
+9.  ภาวะหัวใจล้มเหลว, 144
+10. ภาวะความดันเลือดสูง, 149
+11. ภาวะหัวใจขาดเลือด/
+    *   โรคหลอดเลือดแดงโคโรนารี/
+    *   โรคหลอดเลือดหัวใจแข็ง, 154
+12. โรคหัวใจพีดีเอ, 159
+13. โรคไข้รูมาติก, 162
+14. หลอดเลือดอักเสบเฉียบพลัน, 164
+15. อาการเจ็บหน้าอกแบบปวดเค้น, 167
+
+บทที่ 3
+
+## Cardiovascular Disorders
+
+1.  Acute arterial occlusion, 122
+2.  Acute myocardial infarction, 125
+3.  Angina decubitus, 127
+4.  Angina pectoris, 129
+5.  Aortic valve regurgitation (AR), 132
+6.  Aortic valve stenosis (AS), 134
+7.  Arteriosclerosis obliterans (ASO), 136
+8.  Cardiac arrhythmias/
+    *   Cardiac dysrhythmias, 139
+9.  Congestive heart failure (CHF), 144
+10. Hypertension (HT), 149
+11. Ischemic heart disease (IHD)/ Coronary artery disease (CAD)/ Coronary heart disease (CHD), 154
+12. Patent ductus arteriosus (PDA), 159
+13. Rheumatic fever (RF), 162
+14. Thromboangiitis obliterans (TAO)/ Buerger's disease, 164
+15. Unstable angina, 167

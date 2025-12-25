@@ -1,0 +1,56 @@
+### แหล่งข้อมูล: หน้า 256
+
+คู่มือแพทย์
+
+# โรคระบบทางเดินอาหาร
+
+1. การอุดกั้นทางเดินอาหารส่วนต้น, 257
+2. ฝีคัณฑสูตร/ ฝีทวารหนัก/ ฝีที่ก้น, 259
+3. ไส้ติ่งอักเสบชนิดเฉียบพลัน, 261
+4. มะเร็งหลอดอาหาร, 264
+5. มะเร็งช่องปาก, 266
+6. มะเร็งลำไส้ใหญ่, 269
+7. ปากแหว่ง/ เพดานโหว่, 271
+8. โรคอุจจาระร่วง, 273
+9. โรคหลอดอาหารอักเสบ, 276
+10. ฝีทะลุทวารหนัก, 278
+11. ทางออกกระเพาะอาหารอุดตัน, 279
+12. กระเพาะอาหารอักเสบ, 281
+13. โรคกระเพาะอาหารและลำไส้อักเสบ, 283
+14. โรคกรดไหลย้อน, 286
+15. ริดสีดวงทวารหนัก, 289
+16. ไส้เลื่อน, 291
+17. ลำไส้เล็กอุดกั้น, 293
+18. ภาวะลำไส้เน่าอักเสบ, 295
+19. แผลกระเพาะอาหาร, 296
+20. ภาวะเยื่อบุช่องท้องอักเสบ, 298
+21. ลำไส้ใหญ่อักเสบ, 300
+22. เลือดออกในทางเดินอาหารส่วนต้น, 301
+
+## Gastrointestinal Disorders
+
+1. Achalasia of the cardia/
+Cardiospasm/ Aperistalsis, 257
+2. Anorectal abscess/ Anorectal fistula, Perianal abscess, 259
+3. Acute appendicitis, 261
+4. CA of Esophagus; Carcinoma of esophagus; Esophageal cancer, 264
+5. CA of oral cavity, 266
+6. CA of the Rectum, Sigmoid, Colon/Colorectal cancer, 269
+7. Cleft lip/ Cleft palate, 271
+8. Diarrhea, 273
+9. Esophagitis, 276
+10. Fistula-in-ano, 278
+11. Gastric outlet obstruction, 279
+12. Gastritis, 281
+13. Gastroenteritis, 283
+14. Gastroesophageal reflux disease (GERD), 286
+15. Hemorrhoids, 289
+16. Hernia, 291
+17. Intestinal obstruction, 293
+18. Necrotizing enterocolitis (NEC), 295
+19. Peptic ulcer, 296
+20. Peritonitis, 298
+21. Ulcerative colitis (Crohn's disease), 300
+22. Upper GI bleeding, 301
+
+บทที่ 7

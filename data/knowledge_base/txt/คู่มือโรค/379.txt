@@ -1,0 +1,13 @@
+### แหล่งข้อมูล: หน้า 379
+
+<page_number>379</page_number>
+
+# โรคระบบต่อมไร้ท่อ
+
+<table><tr><td>1. การหลั่งฮอร์โมนเจริญเติบโตมาก ผิดปกติ, 380</td><td></td></tr><tr><td>2. โรคแอดดิสัน, 382</td><td></td></tr><tr><td>3. กลุ่มอาการคุชซิ่ง, 384</td><td></td></tr><tr><td>4. ภาวะเบาจืด, 386</td><td></td></tr><tr><td>5. เบาหวาน, 388</td><td></td></tr><tr><td>6. ภาวะคีโตอะซิโดสิสจากเบาหวาน, 393</td><td></td></tr><tr><td>7. ภาวะการสร้างฮอร์โมน อัลโตสเตอโรนมากกว่าปกติ, 395</td><td></td></tr><tr><td>8. ภาวะหมดสติจากไฮเปอร์ออสโมลาร์ ชนิดไม่มีคีโตเนื่องจากน้ำตาล ในเลือดสูง, 397</td><td></td></tr><tr><td>9. ภาวะฮอร์โมนพาราไทรอยด์สูง, 398</td><td>10. ภาวะต่อมไทรอยด์ทำงานมากกว่าปกติ, 399</td></tr><tr><td></td><td>11. ภาวะต่อมไทรอยด์ทำงาน น้อยกว่าปกติ, 402</td></tr><tr><td></td><td>12. ภาวะน้ำตาลในเลือดต่ำ, 404</td></tr><tr><td></td><td>13. ภาวะต่อมพาราไทรอยด์สร้าง ฮอร์โมนน้อยกว่าปกติ, 406</td></tr><tr><td></td><td>14. เนื้องอกของต่อมหมวกไต, 407</td></tr><tr><td></td><td>15. โรคกล้ามเนื้ออักเสบ, 409</td></tr><tr><td></td><td>16. กลุ่มอาการที่มีการหลั่งฮอร์โมนต้าน การขับปัสสาวะไม่เหมาะสม, 411</td></tr><tr><td></td><td>17. โรคเอสแอลอี, 412</td></tr><tr><td></td><td>18. มะเร็งต่อมไทรอยด์, 415</td></tr><tr><td></td><td>19. ต่อมไทรอยด์อักเสบ, 417</td></tr></table>
+
+## Endocrine Disorders
+
+<table><tr><td>1. Acromegaly, 380</td><td>9. Hyperparathyroidism, 398</td></tr><tr><td>2 Addison's disease/ Primary adrenal Insufficiency, 382</td><td>10. Hyperthyroidism, 399</td></tr><tr><td>3. Cushing's disease/ Cushing's syndrome, 384</td><td>11. Hypothyroidism, 402</td></tr><tr><td>4 Diabetes insipidus (DI), 386</td><td>12. Hypoglycemia, 404</td></tr><tr><td>5. Diabetes mellitus (DM), 388</td><td>13. Hypoparathyroidism, 406</td></tr><tr><td>6. Diabetic ketoacidosis (DKA), 393</td><td>14. Pheochromocytoma, 407</td></tr><tr><td>7. Hyperaldosteronism, 395</td><td>15. Polymyositis, 409</td></tr><tr><td>8. Hyperosmolar hyperglycemic nonketotic syndrome (HHNS)/ Hyperosmolar hyperglycemic nonketotic coma (HHCNC), 397</td><td>16. Syndrome of inappropriate antidiuretic hormone (SIADH), 411</td></tr><tr><td></td><td>17. Systemic lupus erythematosus (SLE), 412</td></tr><tr><td></td><td>18. Thyroid cancer, 415</td></tr><tr><td></td><td>19. Thyroiditis, 417</td></tr></table>
+
+บทที่ 11

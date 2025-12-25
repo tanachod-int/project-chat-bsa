@@ -1,0 +1,6 @@
+ragas
+langchain-community
+langchain-openai
+langchain
+pandas
+datasets

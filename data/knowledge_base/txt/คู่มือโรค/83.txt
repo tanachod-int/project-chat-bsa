@@ -1,0 +1,52 @@
+### แหล่งข้อมูล: หน้า 83
+
+# โรคระบบกล้ามเนื้อและกระดูก
+
+## โรคระบบกล้ามเนื้อและกระดูก
+
+1. ข้ออักเสบชนิดติดเชื้อเฉียบพลัน, 84
+2. ภาวะการกดรัดเส้นประสาทมีเดียน, 85
+3. ภาวะเอ็นบริเวณข้อมืออักเสบ/
+    เดอโกแวง, 87
+4. ข้อเคลื่อนหรือข้อหลุด, 89
+5. กระดูกหัก, 91
+6. โรคเนื้องอกกระดูกชนิดไม่ร้ายแรง, 93
+7. โรคเกาต์, 94
+8. อาการปวดหลังส่วนล่าง, 96
+9. โรคข้อเสื่อม, 100
+10. โรคกระดูกอักเสบติดเชื้อ, 102
+11. โรคกระดูกพรุน, 104
+12. โรคมะเร็งกระดูก, 106
+13. โรคกล้ามเนื้ออักเสบ, 107
+14. ข้ออักเสบรูมาตอยด์, 109
+15. โรควัณโรคกระดูกสันหลัง, 112
+16. เส้นเอ็นอักเสบ, 115
+17. ภาวะปลอกหุ้มเอ็นและกล้ามเนื้อ
+ที่ใช้ในการงอนิ้วมืออักเสบ/
+โรคนิ้วล็อก, 117
+
+## Musculoskeletal Disorders
+
+1. Acute pyogenic arthritis/
+    Acute infection arthritis, 84
+2. Carpal tunnel syndrome (CTS), 85
+3. De Quervain, 87
+4. Dislocation, 89
+5. Fractures, 91
+6. Giant cell tumor/ Osteoclastoma, 93
+7. Gout; Gouty arthritis, 94
+8. Low back pain, 96
+9. Osteoarthritis, 100
+10. Osteomyelitis, 102
+11. Osteoporosis, 104
+12. Osteosarcoma, 106
+13. Polymyositis, 107
+14. Rheumatoid arthritis, 109
+15. Spinal tuberculosis/ TB Spine;
+    Tuberculosis spondylitis/
+    Pott's disease, 112
+16. Tennis elbow/ Tendinitis, 115
+17. Trigger finger/ Stenosing
+flexor tenosynovitis, 117
+
+บทที่ 2

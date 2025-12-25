@@ -1,0 +1,38 @@
+### แหล่งข้อมูล: หน้า 352
+
+<page_number>352</page_number>
+
+คู่มือโรค
+
+# โรคระบบทางเดินปัสสาวะ
+
+1.  ไตอักเสบเฉียบพลัน, 353
+2.  ภาวะไตวายเฉียบพลัน, 355
+3.  ต่อมลูกหมากโต, 358
+4.  ภาวะไตวายเรื้อรัง, 360
+5.  กระเพาะปัสสาวะอักเสบ, 362
+6.  นิ่วในไต, 364
+7.  ภาวะไตวาย, 366
+8.  ท่อปัสสาวะอักเสบ, 369
+9.  กลั้นปัสสาวะไม่อยู่, 371
+10. การติดเชื้อทางเดินปัสสาวะ, 374
+11. โรคมะเร็งที่ไต, 376
+
+## Urinary Tract Disorders
+
+1.  Acute glomerulonephritis, 353
+2.  Acute renal failure (ARF), 355
+3.  Benign prostatic hypertrophy/
+    Benign prostatic hyperplasia
+    (BPH), 358
+4.  Chronic renal failure (CRF), 360
+5.  Cystitis, 362
+6.  Renal calculus/ Kidney stones, 364
+7.  Renal failure, 366
+8.  Urethritis, 369
+9.  Urinary incontinence, 371
+10. Urinary tract infection (UTI), 374
+11. Wilm's tumour/
+    Nephroblastoma, 376
+
+บทที่ 10
