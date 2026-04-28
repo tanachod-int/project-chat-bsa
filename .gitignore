@@ -49,7 +49,7 @@ data/knowledge_base/image/
 data/knowledge_base/pending/
 
 # plan
-workflow/plan
+plans/
 
 # python
 venv/
