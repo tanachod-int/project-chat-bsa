@@ -60,7 +60,7 @@ export function ChatHistory({ sessionId, title, userId }: ChatHistoryProps) {
     loadChatHistory,
     loadingHistory,
     historyError,
-  } = useChatHistory(sessionId, userId)
+  } = useChatHistory(sessionId)
 
   // ========================
   // โหลดประวัติแชท

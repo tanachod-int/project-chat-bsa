@@ -22,7 +22,7 @@ export function useChatSessions(userId?: string) {
     setError(null)
 
     try {
-      const apiUrl = buildApiUrl(API_BASE_SESSION, { userId })
+      const apiUrl = API_BASE_SESSION
       const response = await fetch(apiUrl)
 
       if (!response.ok) {
@@ -49,7 +49,7 @@ export function useChatSessions(userId?: string) {
         headers: {
           'Content-Type': 'application/json',
         },
-        body: JSON.stringify({ title, userId }),
+        body: JSON.stringify({ title }),
       })
 
       if (!response.ok) {

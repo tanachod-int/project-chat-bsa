@@ -3,6 +3,7 @@
 import { useState, useCallback } from 'react'
 import { generateUniqueId } from '@/lib/utils'
 import { API_BASE } from '@/constants/api'
+import { parseSseTextDeltaChunk } from '@/lib/sse-parser'
 
 export interface ChatMessage {
   id: string
@@ -11,7 +12,7 @@ export interface ChatMessage {
   createdAt?: string
 }
 
-export function useChatHistory(initialSessionId?: string, userId?: string) {
+export function useChatHistory(initialSessionId?: string) {
 
   const [currentSessionId, setCurrentSessionId] = useState<string | undefined>(initialSessionId)
   const [messages, setMessages] = useState<ChatMessage[]>([])
@@ -56,7 +57,6 @@ export function useChatHistory(initialSessionId?: string, userId?: string) {
         body: JSON.stringify({
           messages: apiMessages,
           sessionId: currentSessionId,
-          userId: userId,
         }),
         signal: controller.signal,
       })
@@ -82,47 +82,34 @@ export function useChatHistory(initialSessionId?: string, userId?: string) {
 
       const decoder = new TextDecoder()
       let accumulatedContent = ''
+      let streamBuffer = ''
 
       while (true) {
         const { done, value } = await reader.read()
-        if (done) break
+        const chunk = done ? decoder.decode() : decoder.decode(value, { stream: true })
 
-        const chunk = decoder.decode(value, { stream: true })
-        const lines = chunk.split('\n')
+        const parsed = parseSseTextDeltaChunk(streamBuffer, chunk, done)
+        streamBuffer = parsed.buffer
 
-        // 1. สร้างตัวแปรเช็คสถานะจบ
-        let isStreamFinished = false
+        if (parsed.parseErrors > 0) {
+          console.warn('Failed to parse streaming data')
+        }
 
-        for (const line of lines) {
-          if (line.startsWith('data: ')) {
-            try {
-              const jsonStr = line.slice(6)
-
-              // 2. ถ้าเจอ [DONE] ให้ตั้งค่า flag เป็น true
-              if (jsonStr === '[DONE]') {
-                isStreamFinished = true
-                break // หยุด loop ย่อย
-              }
-
-              const data = JSON.parse(jsonStr)
-              if (data.type === 'text-delta' && data.delta) {
-                accumulatedContent += data.delta
-                setMessages(prev => prev.map(msg =>
-                  msg.id === assistantMessage.id
-                    ? { ...msg, content: accumulatedContent }
-                    : msg
-                ))
-              }
-            } catch (e) {
-              console.warn('Failed to parse streaming data:', line, e)
-            }
-          }
+        for (const delta of parsed.deltas) {
+          accumulatedContent += delta
+          setMessages(prev => prev.map(msg =>
+            msg.id === assistantMessage.id
+              ? { ...msg, content: accumulatedContent }
+              : msg
+          ))
         }
 
         // 3. เช็ค flag ถ้าจบแล้ว ให้ break loop ใหญ่ (while) ทันที
-        if (isStreamFinished) {
+        if (parsed.done) {
           break
         }
+
+        if (done) break
       }
       // ---------------------------------------------------------
 
@@ -138,7 +125,7 @@ export function useChatHistory(initialSessionId?: string, userId?: string) {
       setLoading(false)
       setAbortController(null)
     }
-  }, [messages, currentSessionId, loading, userId])
+  }, [messages, currentSessionId, loading])
 
   const stopMessage = useCallback(() => {
     if (abortController) {

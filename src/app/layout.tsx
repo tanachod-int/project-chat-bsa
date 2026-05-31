@@ -1,19 +1,6 @@
 import type { Metadata, Viewport } from "next"
-import { Anuphan, Inter } from "next/font/google"
 import "./globals.css"
 import "katex/dist/katex.min.css"
-
-const anuphan = Anuphan({
-  variable: "--font-anuphan",
-  subsets: ["thai", "latin"],
-  display: "swap",
-})
-
-const inter = Inter({
-  variable: "--font-inter",
-  subsets: ["latin"],
-  display: "swap",
-})
 
 export const viewport: Viewport = {
   width: "device-width",
@@ -42,7 +29,7 @@ export default function RootLayout({
   return (
     <html lang="th">
       <body
-        className={`${anuphan.variable} ${inter.variable} antialiased min-h-screen bg-background text-foreground`}
+        className="antialiased min-h-screen bg-background text-foreground"
       >
         {children}
       </body>

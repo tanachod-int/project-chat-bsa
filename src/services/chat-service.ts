@@ -20,6 +20,24 @@ const HISTORY_CONFIG = {
     strategy: 'last' as const
 }
 
+const EMERGENCY_RESPONSE =
+    'คุณมีอาการที่อาจเป็นภาวะฉุกเฉิน กรุณาโทรฉุกเฉิน 1669 หรือไปห้องฉุกเฉินที่ใกล้ที่สุดทันที ข้อมูลจากแชทนี้ไม่สามารถใช้แทนการประเมินโดยแพทย์ได้'
+
+const EMERGENCY_PATTERNS = [
+    /เจ็บ.*หน้าอก.*(รุนแรง|แน่น|หายใจ|ร้าว)/i,
+    /แน่น.*หน้าอก/i,
+    /(หมดสติ|ไม่รู้สึกตัว|เป็นลม)/i,
+    /(แขน|ขา).*(อ่อนแรง|ชา).*เฉียบพลัน/i,
+    /(หน้าเบี้ยว|พูดไม่ชัด|ปากเบี้ยว)/i,
+    /(ชัก|เกร็ง|กระตุก)/i,
+    /เลือด.*(ไหลไม่หยุด|ไม่หยุด)/i,
+    /(หายใจไม่ออก|หายใจลำบาก|เหนื่อยหอบรุนแรง)/i,
+    /ปวดศีรษะ.*รุนแรง.*(ทันที|เฉียบพลัน)/i,
+    /(severe chest pain|chest tightness|difficulty breathing|shortness of breath)/i,
+    /(fainting|unconscious|seizure|stroke|one-sided weakness)/i,
+    /(bleeding.*won'?t stop|uncontrolled bleeding)/i,
+]
+
 // ChatService - จัดการการคุยกับ AI ทั้งหมด (Chain, History, Prompt, Summary)
 export class ChatService {
     private static model: ChatOllama;
@@ -85,13 +103,23 @@ export class ChatService {
         try {
             const context = await RagService.searchAndRerank(input, 2) || ''
             return { context, hasError: false }
-        } catch (error) {
-            console.warn('⚠️ Search Error:', error)
+        } catch {
+            console.warn('Document search failed')
             return {
                 context: 'ไม่สามารถเข้าถึงระบบค้นหาเอกสารได้ในขณะนี้',
                 hasError: true
             }
         }
+    }
+
+    static getEmergencyResponse(input: string): string | null {
+        const normalizedInput = input.replace(/\s+/g, ' ').trim()
+
+        if (!normalizedInput) return null
+
+        return EMERGENCY_PATTERNS.some(pattern => pattern.test(normalizedInput))
+            ? EMERGENCY_RESPONSE
+            : null
     }
 
     // สร้าง LangChain Pipeline: System Prompt (Guardrails) -> History -> User Input

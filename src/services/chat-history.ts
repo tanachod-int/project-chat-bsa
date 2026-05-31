@@ -1,20 +1,51 @@
 import { getDatabase } from '@/lib/database';
 import { UIMessage } from 'ai';
+import { PoolClient } from 'pg';
+
+import { ForbiddenError, NotFoundError } from '@/lib/api-errors';
 
 // หน้าที่หลัก: จัดการ Session ห้องแชท และ Summary ใน Database
 export class ChatHistoryService {
+  static async getSessionOwner(sessionId: string, client?: PoolClient): Promise<string | null> {
+    const pool = getDatabase();
+    const dbClient = client ?? await pool.connect();
+
+    try {
+      const result = await dbClient.query(
+        'SELECT user_id FROM chat_sessions WHERE id = $1 LIMIT 1',
+        [sessionId]
+      );
+
+      return result.rows?.[0]?.user_id ?? null;
+    } finally {
+      if (!client) dbClient.release();
+    }
+  }
+
+  static async assertSessionOwner(sessionId: string, userId: string, client?: PoolClient): Promise<void> {
+    const ownerId = await this.getSessionOwner(sessionId, client);
+
+    if (!ownerId) {
+      throw new NotFoundError('Session not found');
+    }
+
+    if (ownerId !== userId) {
+      throw new ForbiddenError('Session belongs to another user');
+    }
+  }
 
   // ฟังก์ชัน: ตรวจสอบหรือสร้าง Session ID ใหม่
   // เหตุผล: เพื่อแยกแยะว่าเรากำลังคุยเรื่องใหม่ (New Chat) หรือคุยต่อเนื่องจากเรื่องเดิม 
   // 1. ถ้ามี sessionId ส่งมา -> ใช้ของเดิม
   // 2. ถ้าไม่มี -> สร้างห้องใหม่ใน DB -> ตั้งชื่อห้องอัตโนมัติจาก "ประโยคแรกของผู้ใช้"
-  static async getOrCreateSessionId(sessionId: string | undefined, userId: string | undefined, messages: UIMessage[]): Promise<string> {
+  static async getOrCreateSessionId(sessionId: string | undefined, userId: string, messages: UIMessage[]): Promise<string> {
     // กรณีที่ 1: เป็นการคุยต่อในห้องเดิม
-    if (sessionId) return sessionId;
+    if (sessionId) {
+      await this.assertSessionOwner(sessionId, userId);
+      return sessionId;
+    }
 
     // กรณีที่ 2: เริ่มคุยเรื่องใหม่ (ต้องมี userId เสมอเพื่อผูกเจ้าของ)
-    if (!userId) throw new Error('User ID is required for new session');
-
     const pool = getDatabase();
     const client = await pool.connect();
     try {
@@ -43,13 +74,13 @@ export class ChatHistoryService {
 
   // ฟังก์ชัน: ดึงสรุปใจความสำคัญ
   // chatbot จำบทสนทนาทั้งหมดไม่ได้ เราจึงเก็บ Summary ไว้ใน DB เพื่อให้ AI อ่านก่อนเริ่มคุยต่อ
-  static async getSummary(sessionId: string): Promise<string> {
+  static async getSummary(sessionId: string, userId: string): Promise<string> {
     const pool = getDatabase();
     const client = await pool.connect();
     try {
       const r = await client.query(
-        'SELECT summary FROM chat_sessions WHERE id = $1 LIMIT 1',
-        [sessionId]
+        'SELECT summary FROM chat_sessions WHERE id = $1 AND user_id = $2 LIMIT 1',
+        [sessionId, userId]
       );
       // ถ้าไม่มีข้อมูล ให้คืนค่าว่าง (ไม่ใช่ null)
       return r.rows?.[0]?.summary ?? '';
@@ -60,13 +91,13 @@ export class ChatHistoryService {
 
   // ฟังก์ชัน: อัปเดตสรุปใหม่
   // หลังจากคุยกันไปสักพัก ระบบจะสรุปข้อมูลใหม่และมาบันทึกทับของเดิมที่นี่
-  static async updateSummary(sessionId: string, summary: string) {
+  static async updateSummary(sessionId: string, summary: string, userId: string) {
     const pool = getDatabase();
     const client = await pool.connect();
     try {
       await client.query(
-        'UPDATE chat_sessions SET summary = $1 WHERE id = $2',
-        [summary, sessionId]
+        'UPDATE chat_sessions SET summary = $1 WHERE id = $2 AND user_id = $3',
+        [summary, sessionId, userId]
       );
     } finally {
       client.release();

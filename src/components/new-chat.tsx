@@ -198,19 +198,18 @@ export function NewChat() {
 
     const allMessages = [...loadedMessages, ...messages]
     const unique = []
-    const seenContent = new Set()
+    const seenIds = new Set()
 
     for (const message of allMessages) {
-      const content = getMessageContent(message)
-      const key = `${message.role}-${content}`
-      if (!seenContent.has(key)) {
-        seenContent.add(key)
+      const key = message.id
+      if (!seenIds.has(key)) {
+        seenIds.add(key)
         unique.push(message)
       }
     }
 
     return unique
-  }, [messages, loadedMessages, sessionId, getMessageContent])
+  }, [messages, loadedMessages, sessionId])
 
   // ========================
   // Effects
@@ -298,7 +297,7 @@ export function NewChat() {
       role: 'user' as const,
       parts: [{ type: 'text' as const, text: prompt.trim() }],
     }, {
-      body: { userId, sessionId },
+      body: { sessionId },
     })
 
     setPrompt("")

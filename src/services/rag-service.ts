@@ -2,7 +2,8 @@ import { getDatabase } from '@/lib/database';
 import { Pool } from 'pg';
 import path from 'path';
 import fs from 'fs';
-import { pipeline, env } from '@xenova/transformers';
+import { AutoModelForSequenceClassification, AutoTokenizer, env } from '@xenova/transformers';
+import type { PreTrainedModel, PreTrainedTokenizer } from '@xenova/transformers';
 import { PGVectorStore } from "@langchain/community/vectorstores/pgvector";
 import { OllamaEmbeddings } from "@langchain/community/embeddings/ollama";
 import { CacheBackedEmbeddings } from "langchain/embeddings/cache_backed";
@@ -14,35 +15,115 @@ env.localModelPath = path.join(projectRoot, 'models');
 env.allowRemoteModels = false;
 env.allowLocalModels = true;
 
+const RERANKER_MODEL_NAME = process.env.RAG_RERANKER_MODEL || 'bge-reranker-base';
+
 interface DocumentWithScore {
   pageContent: string;
   metadata?: {
     filename?: string;
+    book_name?: string;
     type?: string;
-    page_number?: number;
+    page_number?: number | null;
     [key: string]: unknown;
   };
   rerankScore?: number;
 }
 
-type RerankerFunction = (query: string, text: string) => Promise<Array<{ score?: number }>>;
+interface RerankerResources {
+  tokenizer: PreTrainedTokenizer;
+  model: PreTrainedModel;
+}
 
 // RagService - ค้นหาเอกสาร + Rerank + บันทึก Log
 export class RagService {
-  private static rerankerPipeline: RerankerFunction | null = null;
+  private static rerankerResources: RerankerResources | null = null;
+
+  private static assertLocalRerankerModel() {
+    const modelPath = path.join(projectRoot, 'models', RERANKER_MODEL_NAME);
+
+    if (!fs.existsSync(modelPath)) {
+      throw new Error(`Local reranker model is missing at ${modelPath}`);
+    }
+  }
 
   // โหลด Reranker (bge-reranker-base) - Singleton สร้างครั้งเดียว
-  private static async getReranker(): Promise<RerankerFunction> {
-    if (!this.rerankerPipeline) {
-      console.log('Loading Local Reranker (bge-reranker-base)...');
-      // ใช้ pipeline 'text-classification' สำหรับทำ Cross-Encoder
-      // quantized: true คือการบีบอัด model เป็น int8 เพื่อให้รันเร็วขึ้นและกินแรมน้อยลง
-      this.rerankerPipeline = (await pipeline('text-classification', 'bge-reranker-base', {
-        quantized: true,
-      })) as unknown as RerankerFunction;
+  private static async getReranker(): Promise<RerankerResources> {
+    if (!this.rerankerResources) {
+      this.assertLocalRerankerModel();
+      console.log(`Loading local reranker (${RERANKER_MODEL_NAME})...`);
+
+      const [tokenizer, model] = await Promise.all([
+        AutoTokenizer.from_pretrained(RERANKER_MODEL_NAME, {
+          local_files_only: true,
+        }),
+        AutoModelForSequenceClassification.from_pretrained(RERANKER_MODEL_NAME, {
+          quantized: true,
+          local_files_only: true,
+        }),
+      ]);
+
+      this.rerankerResources = { tokenizer, model };
       console.log('Reranker loaded.');
     }
-    return this.rerankerPipeline as RerankerFunction;
+    return this.rerankerResources;
+  }
+
+  private static sigmoid(value: number) {
+    return 1 / (1 + Math.exp(-value));
+  }
+
+  private static softmax(values: number[]) {
+    const maxValue = Math.max(...values);
+    const exps = values.map(value => Math.exp(value - maxValue));
+    const sum = exps.reduce((acc, value) => acc + value, 0);
+
+    return exps.map(value => value / sum);
+  }
+
+  private static getPositiveLabelIndex(id2label: Record<string, string> | undefined, labelCount: number) {
+    if (!id2label) return Math.max(0, labelCount - 1);
+
+    const positiveEntry = Object.entries(id2label).find(([index, label]) => {
+      const normalizedLabel = label.toLowerCase();
+      return (
+        index === '1' ||
+        normalizedLabel.includes('relevant') ||
+        normalizedLabel.includes('positive') ||
+        normalizedLabel === 'label_1'
+      );
+    });
+
+    return positiveEntry ? Number(positiveEntry[0]) : Math.max(0, labelCount - 1);
+  }
+
+  private static extractRelevanceScore(logits: { tolist: () => unknown[] }, id2label?: Record<string, string>) {
+    const logitsList = logits.tolist();
+    const firstRow = logitsList[0];
+    const row = (Array.isArray(firstRow) ? firstRow : logitsList) as number[];
+
+    if (row.length === 0) return 0;
+    if (row.length === 1) return this.sigmoid(row[0]);
+
+    const probabilities = this.softmax(row);
+    const positiveIndex = this.getPositiveLabelIndex(id2label, row.length);
+
+    return probabilities[positiveIndex] ?? probabilities[row.length - 1] ?? 0;
+  }
+
+  private static async scoreDocumentPair(query: string, text: string) {
+    const { tokenizer, model } = await this.getReranker();
+    const modelInputs = tokenizer(query, {
+      text_pair: text,
+      padding: true,
+      truncation: true,
+      max_length: 512,
+    });
+    const output = await model(modelInputs);
+
+    return this.extractRelevanceScore(
+      output.logits,
+      model.config?.id2label as Record<string, string> | undefined
+    );
   }
 
   // สร้างการเชื่อมต่อ pgvector ใช้ bge-m3 ทำ embedding
@@ -70,14 +151,12 @@ export class RagService {
     if (docs.length === 0) return [];
     console.log(`Reranking ${docs.length} documents...`);
 
-    const reranker = await this.getReranker();
     const scoredDocs = await Promise.all(docs.map(async (doc: DocumentWithScore) => {
       try {
-        const output = await reranker(query, doc.pageContent);
-        const score = output[0]?.score || 0;
+        const score = await this.scoreDocumentPair(query, doc.pageContent);
         return { ...doc, rerankScore: score };
-      } catch (e) {
-        console.warn('Rerank error for doc:', e);
+      } catch {
+        console.warn('Rerank failed for a retrieved document');
         return { ...doc, rerankScore: -999 };
       }
     }));
@@ -91,7 +170,7 @@ export class RagService {
     const pool = getDatabase();
     try {
       const fetchLimit = 10;
-      console.log(`🔎 1. Vector Search: query="${query}", fetch=${fetchLimit}`);
+      console.log(`Vector search started. fetch=${fetchLimit}`);
 
       const vectorStore = await this.createVectorStore(pool);
 
@@ -100,7 +179,7 @@ export class RagService {
       const initialResults = await vectorStore.similaritySearchWithScore(query, fetchLimit);
 
       if (!initialResults || initialResults.length === 0) {
-        return `ไม่พบเอกสารที่เกี่ยวข้องกับ "${query}" ในระบบ`;
+        return 'ไม่พบเอกสารที่เกี่ยวข้องในระบบ';
       }
 
       const docsForRerank = initialResults.map(([doc]) => doc);
@@ -113,20 +192,20 @@ export class RagService {
       console.log(`✅ 2. Reranked: Selected top ${finalDocs.length} documents`);
 
       return finalDocs.map((doc: DocumentWithScore) => {
-        const filename = doc.metadata?.filename || 'ไม่ทราบชื่อไฟล์';
+        const bookName = doc.metadata?.book_name || doc.metadata?.filename?.replace(/\.txt$/i, '') || 'ไม่ทราบชื่อหนังสือ';
         const type = doc.metadata?.type || 'ไม่ทราบประเภท';
         const page = doc.metadata?.page_number ? ` (หน้า ${doc.metadata.page_number})` : '';
-        const scoreDisplay = doc.rerankScore ? `(Confidence: ${(doc.rerankScore * 100).toFixed(1)}%)` : '';
-        return `ไฟล์: ${filename}${page} (${type.toUpperCase()}) ${scoreDisplay}\nเนื้อหา: ${doc.pageContent}`;
+        const scoreDisplay = typeof doc.rerankScore === 'number' ? `(Reranker score: ${doc.rerankScore.toFixed(4)})` : '';
+        return `หนังสือ: ${bookName}${page} (${type.toUpperCase()}) ${scoreDisplay}\nเนื้อหา: ${doc.pageContent}`;
       }).join('\n\n---\n\n');
 
     } catch (e) {
       const errorMessage = e instanceof Error ? e.message : String(e);
-      console.log('Search error:', errorMessage);
+      console.warn('Document search failed');
       if (errorMessage.includes('connection') || errorMessage.includes('network')) {
         throw new Error('ไม่สามารถเข้าถึงระบบค้นหาเอกสารได้ในขณะนี้');
       }
-      throw new Error(`เกิดข้อผิดพลาดในการค้นหาเอกสาร: ${errorMessage}`);
+      throw new Error('เกิดข้อผิดพลาดในการค้นหาเอกสาร');
     }
   }
 
@@ -158,8 +237,8 @@ export class RagService {
 
       fs.appendFileSync(logFilePath, csvLine, 'utf8');
       console.log('📝 Logged to CSV successfully');
-    } catch (error) {
-      console.error('Failed to log CSV:', error);
+    } catch {
+      console.error('Failed to log CSV');
     }
   }
 }

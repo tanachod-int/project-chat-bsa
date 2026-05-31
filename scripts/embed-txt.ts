@@ -39,17 +39,6 @@ async function runEmbedding() {
         console.log(`🔄 เริ่มต้น Embedding: Model=${OLLAMA_MODEL}, Chunk=${CHUNK_SIZE}/${CHUNK_OVERLAP}, Batch=${BATCH_SIZE}`);
 
         // ===============================================
-        // ล้างข้อมูลเก่า: DROP TABLE แล้วให้ LangChain สร้างใหม่
-        // ===============================================
-        const client = await pool.connect();
-        try {
-            await client.query('DROP TABLE IF EXISTS documents');
-            console.log(`🗑️ ล้างตาราง documents เรียบร้อย`);
-        } finally {
-            client.release();
-        }
-
-        // ===============================================
         // โหลดเอกสาร (.txt เท่านั้น ตาม use case หนังสือ)
         // ===============================================
         if (!fs.existsSync(DOCS_DIR)) {
@@ -104,6 +93,14 @@ async function runEmbedding() {
             pool: pool,
             tableName: 'documents',
         });
+
+        const client = await pool.connect();
+        try {
+            await client.query('TRUNCATE TABLE documents');
+            console.log(`🗑️ ล้างข้อมูลในตาราง documents เรียบร้อย`);
+        } finally {
+            client.release();
+        }
 
         // ===============================================
         // metadata: รองรับชื่อหนังสือ (Folder) ภาษาไทย + เลขหน้า

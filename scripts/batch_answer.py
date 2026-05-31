@@ -11,6 +11,7 @@ import json
 
 # Configuration
 API_URL = "http://localhost:3000/api/chat_main"
+EVAL_SECRET_KEY = os.getenv("EVAL_SECRET_KEY")
 INPUT_FILE = os.path.join(os.getcwd(), 'data', 'evaluation', 'ground_truth.csv')
 OUTPUT_FILE = os.path.join(os.getcwd(), 'data', 'evaluation', 'ragas_evaluation.csv')
 DELAY_SECONDS = 0.5
@@ -18,6 +19,10 @@ TEST_LIMIT = 100  # จำนวนข้อที่จะเทส
 
 def main():
     print("🔄 เริ่มต้น Batch Answer Script...")
+
+    if not EVAL_SECRET_KEY:
+        print("❌ ต้องตั้งค่า EVAL_SECRET_KEY ก่อนรัน batch evaluation")
+        return
     
     if not os.path.exists(INPUT_FILE):
         print(f"❌ ไม่พบไฟล์ข้อมูล: {INPUT_FILE}")
@@ -67,7 +72,8 @@ def main():
             try:
                 headers = {
                     "Content-Type": "application/json",
-                    "x-eval-mode": "true" 
+                    "x-eval-mode": "true",
+                    "x-eval-secret": EVAL_SECRET_KEY,
                 }
                 
                 payload = {
@@ -77,9 +83,7 @@ def main():
                             "content": question,
                             "parts": [{"type": "text", "text": question}]
                         }
-                    ],
-                    "userId": "00000000-0000-0000-0000-000000000000"
-                    # ไม่ส่ง sessionId เพื่อให้ Server สร้าง UUID จริงใน DB มาให้
+                    ]
                 }
                 
                 response = requests.post(API_URL, json=payload, headers=headers, timeout=120)

@@ -3,7 +3,6 @@ import { redirect } from "next/navigation"
 import { ChatHistory } from "@/components/chat-history"
 import { getDatabase } from '@/lib/database'
 
-const pool = getDatabase()
 interface ChatPageProps {
   params: Promise<{
     id: string
@@ -28,6 +27,7 @@ export default async function HistoryChatPage({ params }: ChatPageProps) {
   let sessionExists = false
 
   try {
+    const pool = getDatabase()
     const client = await pool.connect()
     try {
       const result = await client.query(`
@@ -43,8 +43,8 @@ export default async function HistoryChatPage({ params }: ChatPageProps) {
     } finally {
       client.release()
     }
-  } catch (error) {
-    console.error('Error fetching chat session:', error)
+  } catch {
+    console.error('Error fetching chat session')
   }
 
   if (!sessionExists && id !== 'new') {
